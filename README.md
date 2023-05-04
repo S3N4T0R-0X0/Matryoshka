@@ -1,5 +1,9 @@
 # Matryoshka
-Sometimes we see malware exploiting Telegram or Discord to exploit a goal for which it was programmed, and in this simulation it exploited Maga to dump data by giving the malware some data that it might use to lift data through it and it was written in C++ for ease, I added evasion techniques in the future, if you need this
+This repository contains a C++ program that can be used to simulate malware that exploits the messaging platforms Telegram or Discord to achieve its programmed goals. In this case, the program exploits "Maga" to dump data by providing the malware with information that it can use to extract data through the platform.
+
+
+The program is designed for ease of use and can be easily modified to include evasion techniques in the future. 
+
 
 https://user-images.githubusercontent.com/121706460/236140523-56db3417-21db-48be-8698-c9e27fd56297.mp4
 
