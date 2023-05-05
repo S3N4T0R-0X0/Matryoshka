@@ -21,14 +21,12 @@ const std::string MEGA_PASSWORD = "password";
 // Define the URL to the Mega API for uploading files
 const std::string MEGA_UPLOAD_URL = "mega upload url";
 
-// Define the function to handle the response from the Mega API
 static size_t write_callback(char* ptr, size_t size, size_t nmemb, void* userdata) {
     std::string* response = reinterpret_cast<std::string*>(userdata);
     response->append(ptr, size * nmemb);
     return size * nmemb;
 }
 
-// Define the function to upload a file to the Mega account
 bool upload_file_to_mega(const std::string& filepath) {
     // Open the file for reading
     std::ifstream file(filepath, std::ios::binary);
@@ -37,17 +35,14 @@ bool upload_file_to_mega(const std::string& filepath) {
         return false;
     }
 
-    // Read the file into memory
     std::vector<char> filedata((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 
-    // Initialize the CURL library
     CURL* curl = curl_easy_init();
     if (!curl) {
         std::cerr << "Error: failed to initialize CURL" << std::endl;
         return false;
     }
 
-    // Set the options for the CURL request
     struct curl_slist* headers = nullptr;
     headers = curl_slist_append(headers, "Content-Type: application/octet-stream");
     headers = curl_slist_append(headers, ("Authorization: MegaApiBearer " + access_token).c_str());
@@ -59,41 +54,31 @@ bool upload_file_to_mega(const std::string& filepath) {
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response_data);
 
-    // Perform the CURL request
     CURLcode res = curl_easy_perform(curl);
     curl_slist_free_all(headers);
     curl_easy_cleanup(curl);
 
-    // Check for errors
     if (res != CURLE_OK) {
         std::cerr << "Error: CURL request failed with error code " << res << std::endl;
         return false;
     }
 
-    // Parse the response from the Mega API
-    // ...
-
+   
     return true;
 }
 
 int main() {
-    // Define the collection of file paths and formats
     std::vector<std::pair<std::string, std::string>> files = {
         {"file1.txt", "txt"},
         {"file2.png", "png"},
         {"file3.pdf", "pdf"}
     };
 
-    // Log in to the Mega account
-    // ...
+ 
 
-    // Upload each file to the Mega account
     for (const auto& file : files) {
         std::string filepath = file.first;
         std::string fileformat = file.second;
 
-        // Check if the file format is supported
-        // ...
-
-        // Upload the
+      
 
